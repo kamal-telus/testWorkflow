@@ -13,5 +13,14 @@ jobs:
        run: echo 'Hello world!'
      - name: Print goodbye
        run: |
-         echo 'Done 1  -  bye!'
-         echo 'Done  -  bye!'
+          echo 'Done 1  -  bye!'
+          echo 'Done  -  bye!'
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
