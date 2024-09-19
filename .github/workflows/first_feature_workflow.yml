@@ -18,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }} # Describes the step, dynamically
-        uses: actions/setup-node@v4 # Specifies the actions/setup-node action to set up Node.js.
+      - uses: actions/setup-node@v4 # Specifies the actions/setup-node action to set up Node.js.
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
