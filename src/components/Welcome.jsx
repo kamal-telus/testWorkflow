@@ -5,7 +5,7 @@ const Welcome = (props) => {
 
   return (
     <div className="welcome" data-testId='welcome'>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <textarea value={name} onChange={(e) => setName(e.target.value)} />
         <p>
           Welcome, {name}!
         </p>
