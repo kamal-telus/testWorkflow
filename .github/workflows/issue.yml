@@ -1,6 +1,5 @@
 name: Issues Holding Action
 on: issues
-  # branches: [ "main" ]
   jobs:
     issues:
       runs-on: ubuntu-latest
