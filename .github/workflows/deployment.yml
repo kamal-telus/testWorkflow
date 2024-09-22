@@ -1,7 +1,7 @@
 name: Deploy Project
 on: 
   push: 
-    branches: [ "main", "workflow" ]
+    branches: [ "main", "workflow", "workflow_dispatch" ] # Add workflow_dispatch to trigger the workflow manually
   pull_request:
     branches: [ "main" ]
 
@@ -23,6 +23,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - needs: test # This step depends on the test job
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
