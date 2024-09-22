@@ -21,9 +21,9 @@ jobs:
       - name: Test
         run: npm test
   deploy:
+    needs: test # This step depends on the test job
     runs-on: ubuntu-latest
     steps:
-      - needs: test # This step depends on the test job
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
