@@ -9,8 +9,8 @@ jobs:
    runs-on: ubuntu-latest
    steps:
      - name: Print greeting
-       run: echopull request'
+       run: echo 'pull request'
      - name: Print goodbye
-       run: |
+       run:
          echo 'Done 1 pull request  -  bye!'
          echo 'Done  -  bye!'
