@@ -2,17 +2,16 @@ name: First workflow
 on: 
   pull_request:
     branches: 
-      - 'main'
+      - main
   workflow_dispatch:
 
 jobs: 
   first-job:
-   runs-on: ubuntu-latest
-   steps:
-     - name: Print greeting
-       run: echo 'pull request'
-     - name: Print goodbye
-       run:
-         echo 'Done 1 pull request  -  bye!'
-         echo 'Done  -  bye!'
-         echo 'pull request only for main branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print greeting
+        run: echo 'pull request'
+      - name: Print goodbye
+        run:
+          echo 'Done 1 pull request  -  bye!'
+          echo 'Done  -  bye!'
