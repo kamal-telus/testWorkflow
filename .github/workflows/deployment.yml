@@ -1,9 +1,9 @@
 name: Deploy Project
 on: 
   push: 
-    branches: [ "main", "workflow", "workflow_dispatch" ] # Add workflow_dispatch to trigger the workflow manually
+    branches: [ "main1", "workflow", "workflow_dispatch1" ] # Add workflow_dispatch to trigger the workflow manually
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main1" ]
 
 jobs:
   test:

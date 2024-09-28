@@ -2,7 +2,7 @@ name: push to feature workflow
 
 on:
   push:
-    branches: [ "workflow" ]
+    branches: [ "workflow1" ]
   # pull_request:
   #   branches: [ "main" ]
 
