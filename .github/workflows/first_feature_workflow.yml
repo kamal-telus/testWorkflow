@@ -3,8 +3,6 @@ name: push to feature workflow
 on:
   push:
     branches: [ "workflow1" ]
-  # pull_request:
-  #   branches: [ "main" ]
 
 jobs:
   build:
