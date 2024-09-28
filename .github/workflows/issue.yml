@@ -4,7 +4,5 @@ jobs:
   output-info:
     runs-on: ubuntu-latest
     steps:
-    - name: Get code
-      uses: actions/checkout@v2
     - name: Output context details
       run: echo "The issue is ${{ github.event.issue.number }} and the action is ${{ github.event_name }}"
