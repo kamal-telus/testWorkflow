@@ -1,9 +1,7 @@
 name: First push to main workflow
 on: 
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main1" ]
   
 jobs: 
   first-job:
