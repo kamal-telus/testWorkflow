@@ -25,7 +25,6 @@ jobs:
       run: npm ci
       name: Linting
       run: npm run lint
-      
   deploy:
     needs: checkLint
     runs-on: ubuntu-latest
