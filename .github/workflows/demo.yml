@@ -45,7 +45,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Download Artifact
+      - name: Get Upload Artifact
         uses: actions/download-artifact@v3
         with:
           name: build
+          path: dist
