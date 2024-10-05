@@ -45,6 +45,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build Artifact
+        run: npm run build
       - name: Get Upload Artifact
         uses: actions/download-artifact@v3
         with:
