@@ -1,8 +1,0 @@
-name: Issues Holding Action
-on: issues
-jobs:
-  output-info:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Output context details
-      run: echo "The issue is ${{ github.event.issue.number }} and the action is ${{ github.event_name }}"
