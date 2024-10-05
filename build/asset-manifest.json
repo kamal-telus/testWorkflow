@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/testWorkflow/static/css/main.b57db405.css",
+    "main.js": "/testWorkflow/static/js/main.3255474b.js",
+    "static/js/453.a6a97343.chunk.js": "/testWorkflow/static/js/453.a6a97343.chunk.js",
+    "static/media/logo.svg": "/testWorkflow/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/testWorkflow/index.html",
+    "main.b57db405.css.map": "/testWorkflow/static/css/main.b57db405.css.map",
+    "main.3255474b.js.map": "/testWorkflow/static/js/main.3255474b.js.map",
+    "453.a6a97343.chunk.js.map": "/testWorkflow/static/js/453.a6a97343.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b57db405.css",
+    "static/js/main.3255474b.js"
+  ]
+}
