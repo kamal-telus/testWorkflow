@@ -55,7 +55,7 @@ jobs:
           name: build
           path: dist
   download-artifact:
-      needs: checkLint
+      needs: "upload-artifact"
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Repository
