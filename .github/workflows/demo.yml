@@ -52,8 +52,8 @@ jobs:
       - name: Get Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: build
-          path: dist
+          name: build-artifacts
+          path: build
   download-artifact:
       needs: "upload-artifact"
       runs-on: ubuntu-latest
@@ -63,5 +63,5 @@ jobs:
         - name: Get Download Artifact
           uses: actions/download-artifact@v3
           with:
-            name: build
-            path: dist
+            name: build-artifacts
+            path: build
