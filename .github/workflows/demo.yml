@@ -40,7 +40,7 @@ jobs:
       - name: Deploy
         run: echo "Deploying!"
   download-artifact:
-    needs: deploy
+    needs: checkLint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -50,7 +50,7 @@ jobs:
       - name: Build Artifact
         run: npm run build
       - name: Get Upload Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: build
           path: dist
