@@ -42,6 +42,8 @@ jobs:
   upload-artifact:
     needs: checkLint
     runs-on: ubuntu-latest
+    outputs:
+      script-name: ${{ steps.publish.outputs.newScript }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -50,7 +52,8 @@ jobs:
       - name: Build Artifact
         run: npm run build
       - name: Publish file name
-        run: find dist/assets/*.js -type f -execdir echo '{}' ';'
+        id: publish
+        run: find dist/assets/*.js -type f -execdir echo 'newScript={}' >> $GITHUB_OUTPUT ';'
       - name: Get Upload Artifact
         uses: actions/upload-artifact@v3
         with:
