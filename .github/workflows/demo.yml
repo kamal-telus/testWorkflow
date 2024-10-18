@@ -39,7 +39,7 @@ jobs:
         run: npm run build
       - name: Deploy
         run: echo "Deploying!"
-  upload-artifact:
+  uploadArtifact:
     needs: checkLint
     runs-on: ubuntu-latest
     outputs:
@@ -59,8 +59,8 @@ jobs:
         with:
           name: build-artifacts
           path: dist
-  download-artifact:
-      needs: "uploadArtifact"
+  downloadArtifact:
+      needs: uploadArtifact
       runs-on: ubuntu-latest
       steps:
         - name: Get Download Artifact
