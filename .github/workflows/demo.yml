@@ -60,10 +60,13 @@ jobs:
           name: build-artifacts
           path: dist
   download-artifact:
-      needs: "upload-artifact"
+      needs: "uploadArtifact"
       runs-on: ubuntu-latest
       steps:
         - name: Get Download Artifact
           uses: actions/download-artifact@v3
           with:
             name: build-artifacts
+        - name: Output filename
+          run: ${{ needs.uploadArtifact.outputs.script-name }}
+
