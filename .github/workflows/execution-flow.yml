@@ -43,6 +43,11 @@ jobs:
         run: npm ci
       - name: Deploye code
         run: echo 'code deployed'
-  
-
-  
+  failureReport: 
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Output information
+        run: |
+          echo 'Send failure report'
+          echo 'failure report sent'
