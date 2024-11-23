@@ -10,6 +10,6 @@ test('renders welcome text', () => {
 test('renders input button', () => {
   render(<Welcome />);
   const input = screen.getByRole('textbox', 'type');
-  expect(input.name).toBe('task');
+  expect(input.name).toBe('tasks');
   expect(input).toBeInTheDocument();
 });

@@ -28,6 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get code
+        if: steps.test.outcome == 'success'
         uses: actions/checkout@v3
       - name: install dependencies
         run: npm ci
