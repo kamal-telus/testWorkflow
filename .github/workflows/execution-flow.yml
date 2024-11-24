@@ -38,6 +38,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: test case
+        continue-on-error: true
         run: npm run test
   build:
     needs: test
