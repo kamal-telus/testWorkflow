@@ -9,17 +9,33 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache Dependecies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: install dependecies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Lint code
         run: npm run lint
+      - name: render key
+        run: echo 'Cache hit ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}'
   test:
     needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
         uses: actions/checkout@v3
+      - name: Cache Dependecies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: install dependecies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: test case
         run: npm run test
@@ -30,7 +46,14 @@ jobs:
       - name: get code
         if: steps.test.outcome == 'success'
         uses: actions/checkout@v3
-      - name: install dependencies
+      - name: Cache Dependecies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: install dependecies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Build
         run: npm run build
@@ -39,7 +62,14 @@ jobs:
     steps:
       - name: get code
         uses: actions/checkout@v3
-      - name: install dependencies
+      - name: Cache Dependecies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: install dependecies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Deploye code
         run: echo 'code deployed'
