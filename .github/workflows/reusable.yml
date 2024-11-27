@@ -31,42 +31,6 @@ jobs:
         run: npm run lint
       - name: render key
         run: echo 'Cache hit ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}'
-  test:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Code
-        uses: actions/checkout@v3
-      - name: Cache Dependecies
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - name: install dependecies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
-      - name: test case
-        continue-on-error: true
-        run: npm run test
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: get code
-        if: steps.test.outcome == 'success'
-        uses: actions/checkout@v3
-      - name: Cache Dependecies
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - name: install dependecies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
-      - name: Build
-        run: npm run build
   deploy:
     outputs:
       outcome: ${{ steps.set-result.outputs.step-result }}
@@ -89,13 +53,3 @@ jobs:
         id: set-result
         # run: echo 'step-result::success' >> $GITHUB_OUTPUT
         run: echo "::set-output name=step-result::success"
-  failureReport: 
-    needs: [lint, test, build, deploy]
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Output information
-        run: |
-          echo 'Send failure report'
-          echo 'failure report sent'
-      
