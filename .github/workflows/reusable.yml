@@ -33,7 +33,7 @@ jobs:
         run: echo 'Cache hit ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}'
   deploy:
     outputs:
-      outcome: ${{ steps.set-result.outputs.step-result }}
+      outcome: "jobs outcome: ${{ steps.set-result.outputs.step-result }}"
     runs-on: ubuntu-latest
     steps:
       - name: get code
