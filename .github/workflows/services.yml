@@ -6,7 +6,7 @@ on:
 env:
   MONGODB_CLUSTER_ADDRESS: cluster0.s3wa7.mongodb.net/
   MONGODB_USERNAME: dummyBff@admin
-  MONGODB_PASSWORD: 8010258023
+  MONGODB_PASSWORD: 80102580231
   PORT: 8080
 jobs: 
   test:
