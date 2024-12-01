@@ -1,7 +1,7 @@
 name: Website deployment
 on:
   push:
-    branches: ['main']
+    branches: ['main-1']
 
 jobs:
   lint:
