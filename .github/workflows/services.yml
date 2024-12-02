@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: run server
-        run: npm start & npx wait-on http://localhost:${{ env.PORT }}
+        run: cd client & npm start & npx wait-on http://localhost:${{ env.PORT }}
       - name: Test cases
         run: npm test
   checkLint:
