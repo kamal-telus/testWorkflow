@@ -1,13 +1,7 @@
 name: Demo file
 on: 
   push:
-    branches: ["main"]
-
-env:
-  MONGODB_CLUSTER_ADDRESS: cluster0.s3wa7.mongodb.net/
-  MONGODB_USERNAME: dummyBff@admin
-  MONGODB_PASSWORD: 8010258023
-  PORT: 8081
+    branches: ["pull_request1"]
 jobs: 
   test:
     runs-on: ubuntu-latest
@@ -19,11 +13,9 @@ jobs:
         with: 
           node-version: '20.x'
       - name: Install Dependencies
-        run: cd client && npm ci
-      - name: run server
-        run: cd client &&  npm start & npx wait-on http://localhost:${{ env.PORT }}
+        run: npm ci
       - name: Test cases
-        run: cd client && npm test
+        run: npm test
   checkLint:
     needs: test
     runs-on: ubuntu-latest
@@ -31,9 +23,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Install Dependencies
-        run: cd client && npm ci
-      - name: Checking Linting
-        run: cd client && npm run lint
+        run: npm ci
+      - name: Linting
+        run: npm lint
   deploy:
     needs: checkLint
     runs-on: ubuntu-latest
@@ -41,8 +33,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Install Dependencies
-        run: cd client && npm ci
+        run: npm ci
       - name: Build
-        run: cd client && npm build
+        run: npm build
       - name: Deploy
-        run: echo "Deploying! ${{ env.PORT }}"
+        run: echo "Deploying!"

@@ -19,11 +19,11 @@ jobs:
         with: 
           node-version: '20.x'
       - name: Install Dependencies
-        run: cd client && npm ci
+        run: npm ci
       - name: run server
-        run: cd client &&  npm start & npx wait-on http://localhost:${{ env.PORT }}
+        run: cd client & npm start & npx wait-on http://localhost:${{ env.PORT }}
       - name: Test cases
-        run: cd client && npm test
+        run: npm test
   checkLint:
     needs: test
     runs-on: ubuntu-latest
@@ -31,9 +31,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Install Dependencies
-        run: cd client && npm ci
+        run: npm ci
       - name: Checking Linting
-        run: cd client && npm run lint
+        run: npm run lint
   deploy:
     needs: checkLint
     runs-on: ubuntu-latest
@@ -41,8 +41,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Install Dependencies
-        run: cd client && npm ci
+        run: npm ci
       - name: Build
-        run: cd client && npm build
+        run: npm build
       - name: Deploy
         run: echo "Deploying! ${{ env.PORT }}"
