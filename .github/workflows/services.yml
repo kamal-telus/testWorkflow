@@ -5,8 +5,8 @@ on:
 
 env:
   MONGODB_CLUSTER_ADDRESS: cluster0.s3wa7.mongodb.net/
-  MONGODB_USERNAME: dummyBff@admin
-  MONGODB_PASSWORD: 8010258023
+  MONGODB_USERNAME: ${{ secrets.MONGODDB_USERNAME }} # dummyBff@admin
+  MONGODB_PASSWORD: ${{ secrets.MONGODDB_PASSWORD }} # 8010258023
   PORT: 8081
 jobs: 
   test:
@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: cd client && npm ci
       - name: run server
-        run: cd client &&  npm start & npx wait-on http://localhost:${{ env.PORT }}
+        run: cd client && npm start & npx wait-on http://localhost:${{ env.PORT }}
       - name: Test cases
         run: cd client && npm test
   checkLint:
@@ -43,6 +43,6 @@ jobs:
       - name: Install Dependencies
         run: cd client && npm ci
       - name: Build
-        run: cd client && npm build
+        run: cd client && npm run build
       - name: Deploy
         run: echo "Deploying! ${{ env.PORT }}"
