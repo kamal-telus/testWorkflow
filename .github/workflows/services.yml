@@ -45,4 +45,4 @@ jobs:
       - name: Build
         run: cd client && npm run build
       - name: Deploy
-        run: echo "Deploying! ${{ env.PORT }}"
+        run: echo "Deploying! ${{ env.MONGODB_USERNAME }}"
