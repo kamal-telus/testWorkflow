@@ -8,8 +8,10 @@ env:
   MONGODB_USERNAME: ${{ secrets.MONGODDB_USERNAME }} # dummyBff@admin
   MONGODB_PASSWORD: ${{ secrets.MONGODDB_PASSWORD }} # 8010258023
   PORT: 8081
+
 jobs: 
   test:
+    environment: main
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -45,4 +47,6 @@ jobs:
       - name: Build
         run: cd client && npm run build
       - name: Deploy
-        run: echo "Deploying! ${{ env.MONGODB_USERNAME }}"
+        run: |
+          echo "Deploying! ${{ env.MONGODB_USERNAME }}"
+          echo "Deploying password! ${{ env.MONGODDB_PASSWORD }}"

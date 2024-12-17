@@ -25,7 +25,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Linting
-        run: npm lint
+        run: npm run lint
   deploy:
     needs: checkLint
     runs-on: ubuntu-latest
@@ -35,6 +35,37 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Build
-        run: npm build
+        run: npm run build
       - name: Deploy
         run: echo "Deploying!"
+  uploadArtifact:
+    needs: checkLint
+    runs-on: ubuntu-latest
+    outputs:
+      script-name: ${{ steps.publish.outputs.newScript }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build Artifact
+        run: npm run build
+      - name: Publish file name
+        id: publish
+        run: find dist/assets/*.js -type f -execdir echo 'newScript={}' >> $GITHUB_OUTPUT ';'
+      - name: Get Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: dist
+  downloadArtifact:
+      needs: uploadArtifact
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get Download Artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: build-artifacts
+        - name: Output filename
+          run: ${{ needs.uploadArtifact.outputs.script-name }}
+
