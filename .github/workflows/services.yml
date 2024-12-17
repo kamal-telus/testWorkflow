@@ -2,7 +2,6 @@ name: Demo file
 on: 
   push:
     branches: ["main", "workflow"]
-
 env:
   MONGODB_CLUSTER_ADDRESS: cluster0.s3wa7.mongodb.net/
   MONGODB_USERNAME: ${{ secrets.MONGODDB_USERNAME }} # dummyBff@admin
