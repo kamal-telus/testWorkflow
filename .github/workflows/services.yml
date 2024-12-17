@@ -1,7 +1,7 @@
 name: Demo file
 on: 
   push:
-    branches: ["main"]
+    branches: ["main", "workflow"]
 
 env:
   MONGODB_CLUSTER_ADDRESS: cluster0.s3wa7.mongodb.net/
