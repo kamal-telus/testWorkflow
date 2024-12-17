@@ -1,0 +1,82 @@
+name: Website deployment
+on:
+  push:
+    branches: ['main-1']
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Cache Dependecies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: install dependecies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Lint code
+        run: npm run lint
+      - name: render key
+        run: echo 'Cache hit ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}'
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Cache Dependecies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: install dependecies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: test case
+        continue-on-error: true
+        run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        uses: actions/checkout@v3  
+      - name: Cache Dependecies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: install dependecies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+      - name: Build code
+        run: npm run build
+
+  deploy:
+    if: success()
+    needs: build
+    uses: './.github/workflows/reusable.yml'
+    with:
+      params_name: testing
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deploy result
+        run: echo "${{ needs.deploy.outputs.result }}"
+        
+  failureReport: 
+    needs: [lint, test, build, deploy]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output information
+        run: |
+          echo 'Send failure report'
+          echo 'failure report sent'

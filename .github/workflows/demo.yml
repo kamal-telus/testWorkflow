@@ -1,8 +1,7 @@
 name: Demo file
 on: 
-    pull_request:
-    workflow_dispatch:
-  
+  push:
+    branches: ["pull_request1"]
 jobs: 
   test:
     runs-on: ubuntu-latest

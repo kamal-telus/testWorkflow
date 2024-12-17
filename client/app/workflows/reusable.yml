@@ -1,0 +1,55 @@
+name: Reusable deployment
+on:
+  workflow_call:
+    inputs:
+      params_name:
+        description: The name of the deployable artifact files
+        required: false
+        type: string
+        default: test
+    outputs:
+      result:
+        description: The result of the deployment operation
+        value: ${{ jobs.deploy.outputs.outcome }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Cache Dependecies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: install dependecies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Lint code
+        run: npm run lint
+      - name: render key
+        run: echo 'Cache hit ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}'
+  deploy:
+    outputs:
+      outcome: "jobs outcome: ${{ steps.set-result.outputs.step-result }}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        uses: actions/checkout@v3
+      - name: Cache Dependecies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: install dependecies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Deploye code
+        run: echo 'code deploying ...'
+      - name: Set result output
+        id: set-result
+        # run: echo 'step-result::success' >> $GITHUB_OUTPUT
+        run: echo "::set-output name=step-result::success"
