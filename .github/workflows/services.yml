@@ -44,4 +44,6 @@ jobs:
       - name: Build
         run: cd client && npm run build
       - name: Deploy
-        run: echo "Deploying! ${{ env.MONGODB_USERNAME }}"
+        run: |
+          echo "Deploying! ${{ env.MONGODB_USERNAME }}"
+          echo "Deploying password! ${{ env.MONGODDB_PASSWORD }}"
