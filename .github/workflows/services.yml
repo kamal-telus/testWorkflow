@@ -3,12 +3,24 @@ on:
   push:
     branches: ["main", "workflow"]
 env:
-  MONGODB_CLUSTER_ADDRESS: cluster0.s3wa7.mongodb.net/
+  MONGODB_CONNECTION_PROTOCOL: mongodb #mongodb+srv
+  MONGODB_CLUSTER_ADDRESS: mongodb #cluster0.s3wa7.mongodb.net/
   MONGODB_USERNAME: ${{ secrets.MONGODDB_USERNAME }} # dummyBff@admin
   MONGODB_PASSWORD: ${{ secrets.MONGODDB_PASSWORD }} # 8010258023
   PORT: 8081
 jobs: 
   test:
+    container: 
+      image: node:20
+    services:
+      mongodb:
+        image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGODDB_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGODDB_PASSWORD }}
+        ports: 
+          - 27017:27017
+        options: --name mongo
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
