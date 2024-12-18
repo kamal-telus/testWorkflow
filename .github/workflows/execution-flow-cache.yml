@@ -9,13 +9,13 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Cache Dependecies
+      - name: Cache Dependencies
         id: cache
         uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - name: install dependecies
+      - name: install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Lint code
@@ -28,13 +28,13 @@ jobs:
     steps:
       - name: Get Code
         uses: actions/checkout@v3
-      - name: Cache Dependecies
+      - name: Cache Dependencies
         id: cache
         uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - name: install dependecies
+      - name: install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: test case
@@ -46,13 +46,13 @@ jobs:
     steps:
       - name: get code
         uses: actions/checkout@v3  
-      - name: Cache Dependecies
+      - name: Cache Dependencies
         id: cache
         uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - name: install dependecies
+      - name: install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
       - name: Build code

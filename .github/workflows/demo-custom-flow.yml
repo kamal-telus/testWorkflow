@@ -1,7 +1,7 @@
 name: Demo file
 on: 
   push:
-    branches: ["main-1", "workflow-1"]
+    branches: ["main", "workflow"]
 env:
   MONGODB_CONNECTION_PROTOCOL: mongodb #mongodb+srv
   MONGODB_CLUSTER_ADDRESS: mongodb #cluster0.s3wa7.mongodb.net/
@@ -29,19 +29,35 @@ jobs:
         uses: actions/setup-node@v4
         with: 
           node-version: '20.x'
+      - name: Cache Dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: cd client && npm ci
       - name: run server
         run: cd client && npm start & npx wait-on http://localhost:${{ env.PORT }}
       - name: Test cases
         run: cd client && npm test
+      - name: render key
+        run: echo 'Cache hit ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}'
   checkLint:
     needs: test
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout Repository
         uses: actions/checkout@v4
+      - name: Cache Dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: cd client && npm ci
       - name: Checking Linting
         run: cd client && npm run lint
@@ -51,7 +67,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+      - name: Cache Dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: cd client && npm ci
       - name: Build
         run: cd client && npm run build
