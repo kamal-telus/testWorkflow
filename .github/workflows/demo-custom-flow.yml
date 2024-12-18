@@ -30,7 +30,7 @@ jobs:
         with: 
           node-version: '20.x'
       - name: Load & Cache Dependencies
-        uses: ./.github/custom-action
+        uses: ./.github/actions/cached-depend/
       - name: run server
         run: cd client && npm start & npx wait-on http://localhost:${{ env.PORT }}
       - name: Test cases
@@ -44,7 +44,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Load & Cache Dependencies
-        uses: ./.github/custom-action
+        uses: ./.github/actions/cached-depend/
       - name: Checking Linting
         run: cd client && npm run lint
   deploy:
@@ -54,7 +54,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Load & Cache Dependencies
-        uses: ./.github/custom-action
+        uses: ./.github/actions/cached-depend/
       - name: Build
         run: cd client && npm run build
       - name: Deploy
