@@ -31,6 +31,8 @@ jobs:
           node-version: '20.x'
       - name: Load & Cache Dependencies
         uses: ./.github/actions/cached-depend/
+        with: 
+          caching: 'false'
       - name: run server
         run: cd client && npm start & npx wait-on http://localhost:${{ env.PORT }}
       - name: Test cases

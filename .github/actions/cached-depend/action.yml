@@ -1,15 +1,22 @@
 name: 'Composite action (Get & Cache Dependencies)'
 description: 'A composite action that gets and caches dependencies'
+inputs:
+  caching:
+    description: 'The caching action to use'
+    required: false
+    default: 'true'
+
 runs:
   using: 'composite'
   steps:
     - name: Cache Dependencies
+      if: inputs.caching == 'true'
       id: cache
       uses: actions/cache@v3
       with:
         path: node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - name: Install Dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.caching == 'false'
       run: cd client && npm ci
       shell: bash
