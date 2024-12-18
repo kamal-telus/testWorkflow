@@ -18,6 +18,7 @@ runs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true' || inputs.caching == 'false'
-      run: cd client && npm ci
-      run: echo ' input params ${{ inputs.caching }}'
+      run: |
+        cd client && npm ci
+        echo ' input params ${{ inputs.caching }}'
       shell: bash
